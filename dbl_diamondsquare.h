@@ -9,6 +9,12 @@
 //
 //
 
+// Usage:
+// Do
+//     #define STB_PERLIN_IMPLEMENTATION
+// in *one* CPP file that includes this file, and then include this file for usage
+
+
 // Documentation:
 // data: pointer to float array - must be size*size length
 // size: size of the generated array - must be of form (2^n)+1
@@ -16,6 +22,11 @@
 // maxValue: Maximum value of the generated data
 // noiseValue: Determines the contrast of the data - lower values gives a blurred result, higher values gives a higher contrasted value.
 
+typedef unsigned __int32 power_of_two_plus_one;
+extern void dbl_generate_diamondsquare_array(float* data, power_of_two_plus_one size, float minValue, float maxValue, float noiseValue);
+
+#ifdef DBL_DIAMONDSQUARE_IMPLEMENTATION
+#include <stdlib.h>
 
 #define __dbl_random (double)rand() / ((double)RAND_MAX + 1)
 #define __dbl_random_range(min, max) ((min) + ((max) - (min))*(__dbl_random))
@@ -26,7 +37,7 @@ inline int __dbl__xy_to_index(int x, int y, int size)
 	return (((y)* (size)) + (x));
 }
 
-typedef unsigned __int32 power_of_two_plus_one;
+
 
 void dbl_generate_diamondsquare_array(float* data, power_of_two_plus_one size, float minValue = 0.0f, float maxValue = 1.0f, float noiseValue = .07f)
 {
@@ -111,3 +122,4 @@ void dbl_generate_diamondsquare_array(float* data, power_of_two_plus_one size, f
 
 	}
 }
+#endif
